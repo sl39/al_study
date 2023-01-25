@@ -16,4 +16,10 @@ for i in range(0,N):
             mys[j][i] = mys[j][i]
         else:
             mys[j][i] = mys[j-1][i] + mat[j][i]
-print(mys)
+for i in range(M):
+    x1,y1,x2,y2 = map(int,input().split())
+    if x1 == 0 and x2 ==0:
+        print(mys[x2-1][y2-1])
+    elif x1 != 0:
+        print()
+    print(mys[x2-1][y2-1]+ mys[x1-1][y1-1]-mys[x1-2][y2-1]-mys[x2-1][y1-2])
