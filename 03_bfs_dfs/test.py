@@ -1,4 +1,6 @@
-n = int(input())
+import Coi
 
-for i in range(n):
-    print(' '*i + '*'*(2*(n-i)-1))
+
+A  = [1,2,3,1,1,1,2,3,4,5,5,6]
+B  = 
+print(B)
