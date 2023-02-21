@@ -1,10 +1,20 @@
-N = int(input())
-result = []
-for i in range(N):
-    result.append(int(input()))
+import sys
+# sys.stdin = open('printer_queue_input.txt')
+from collections import deque
+input = sys.stdin.readline
 
-cnt = 0
+Test_case = int(input())
 
-def stair(cnt,):
-    if cnt == N-1:
-    while cnt == N -1: 
+for tc in range(1, Test_case + 1):
+    N, M = map(int, input().split())
+    arr = deque(enumerate(list(map(int, input().split()))))
+    priority = list(arr)
+    count = 0
+    while max(arr, key=lambda x: x[1]) != priority[M]:
+        while max(arr, key=lambda x: x[1]) != arr[0]:
+
+                    arr.append(arr.popleft())
+        arr.popleft()
+        count += 1
+    count += 1
+    print(count)
