@@ -1,12 +1,17 @@
+# https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXRFInKex8DFAUo&categoryId=AWXRFInKex8DFAUo&categoryType=CODE&problemTitle=%EC%9B%90%EC%9E%90&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1&&&&&&&&&
+
 import sys
-input = sys.stdin.readline
+sys.stdin = open("sample_input.txt")
 
-n = int(input())
-arr = [0] *(1000001)
-for i in range(n):
-    num = int(input())
-    arr[num] = 1
+TC = int(input())
 
-for i in range(1000001):
-    if arr[i]:
-        print(i)
+direction = [[0,1],[0,-1],[-1,0],[1,0]]
+for T in range(TC):
+    n = int(input())
+    atom = []
+    for i in range(n):
+        arr = list(map(int,input().split()))
+        atom.append(arr)
+    
+
+
