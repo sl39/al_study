@@ -3,7 +3,7 @@ input = sys.stdin.readline
 
 mat = []
 for i in range(9):
-    mat.append(list(map(int,input().split())))
+    mat.append(list(map(int,list(input().strip()))))
 
 blank = []
 
@@ -37,8 +37,10 @@ def check_9(x,y,num):
 
 def sudoku(t):
     if t == len(blank):
-        for i in mat:
-            print(*i)
+        for i in range(9):
+            for j in range(9):
+                print(mat[i][j], end="")
+            print()
         exit(0)
 
     for a in range(1,10):
