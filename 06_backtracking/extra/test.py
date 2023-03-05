@@ -29,7 +29,7 @@ def omok(start):
                         result.append([m+1, n+1])
                         print(arr[m][n]), print(*result[0])
                         exit()
-                else:
+                else:                                               ### 이거입니다
                     if k == 3:
                         result.append([ny + 1, nx + 1])
                         print(arr[m][n]), print(*result[0])
