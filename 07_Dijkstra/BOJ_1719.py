@@ -22,6 +22,12 @@ def di(node):
     heappush(q,(0,node))
     while q:
         cost, now = heappop(q)
+
+        # 그냥 큐로 하면 되는줄 알았는데 우선순위 큐를 이용하는 거더라
+        # 생각 보다 이것만 알면 되는데 이걸 몰라서 너무 헤멨다
+        # 이것만 알면되는거 였다
+        # 이걸 알아와서 공부를 하니 되더라
+        
         if cost > visited[now]:
             continue
         for i in graph[now]:
