@@ -23,6 +23,7 @@ while q:
     if c >= visited[x][y]:
         continue
     visited[x][y] = c
+    t = 0
     for i in range(4):
         nx = dx[i] + x
         ny = dy[i] + y
@@ -34,7 +35,18 @@ while q:
                 heappush(q,(0,nx,ny))
                 # visited[nx][ny] = c
                 mat[nx][ny] = 1
-                res.append(c+1)
+                if c>1:
+                    t += 1
+                else:
+                    res.append(c+1)
+    if t > 1:
+        for i in range(t-1):
+            res.append(2)
+        res.append(c+1)
+    elif t== 1:
+        res.append(c+1)
+
+
 
 if len(res) != m:
     print(-1)
