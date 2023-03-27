@@ -1,3 +1,5 @@
+#  BOJ_1647 와 비슷하게 하면 됨
+
 n = int(input())
 m = int(input())
 
