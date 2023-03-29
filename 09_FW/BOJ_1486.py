@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 from heapq import heappop,heappush
 
 n,m,t,d = map(int,input().split())
@@ -13,38 +16,76 @@ def alpha(s):
     return ans
 
 start = (0,0)
+for i in range(n):
+    for j in range(m):
+        mat[i][j] = alpha(mat[i][j])
 
-visited = [[(1000000,1000000)] * m for i in range(n)]
+go = [[100000]*m for i in range(n)]
+back = [[100000]*m for i in range(n)]
+
+
 
 dx = [1,-1,0,0,1,1,-1,-1]
 dy = [0,0,1,-1,1,-1,1,-1]
 
 q = []
-heappush(q,(0,0,0,0))
+heappush(q,(0,0,0))
+
 while q:
-    go, back, x,y = heappop(q)
-    if visited[x][y][0] < go:
-        continue
-    if visited[x][y][0] == go and visited[x][y][1] < back:
+    c,x,y, = heappop(q)
+    if go[x][y] <= c:
         continue
     
-    visited[x][y] = (go,back)
-    for i in range(8):
+    go[x][y] = c
+    for i in range(4):
         nx = x + dx[i]
         ny = y + dy[i]
-        if 0<= nx < n and 0<= ny < m and abs(alpha(mat[nx][ny])- alpha(mat[x][y])) <= t:
-            a = alpha(mat[nx][ny])- alpha(mat[x][y])
-            if a > 0:
-                newgo = go + a**2
-                newback = back + 1
-            elif a == 0:
-                newgo = go + 1
-                newback = back + 1
-            else:
-                newgo = go + 1
-                newback = back + a**2
-            
-            heappush(q, (min(newgo,go), min(newback,back),nx,ny))
+        if 0<= nx < n and 0<= ny < m:
+            a = mat[nx][ny]-mat[x][y]
+            if abs(a) <= t:
+                if a > 0:
+                    cost = a**2 + c
+                    heappush(q,(cost,nx,ny))
+                else:
+                    cost = 1 + c
+                    heappush(q,(cost,nx,ny))
 
-for i in visited:
-    print(i)
+
+q = []
+heappush(q,(0,0,0))
+
+while q:
+    c,x,y, = heappop(q)
+    if back[x][y] <= c:
+        continue
+    
+    back[x][y] = c
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0<= nx < n and 0<= ny < m:
+            a = mat[nx][ny]-mat[x][y]
+            if abs(a) <= t:
+                if a >= 0:
+                    cost = 1 + c
+                    heappush(q,(cost,nx,ny))
+                else:
+                    cost = a**2 + c
+                    heappush(q,(cost,nx,ny))
+
+
+
+
+
+for i in range(n):
+    for j in range(m):
+        go[i][j] += back[i][j]
+    
+mx = 0
+for i in range(n):
+    for j in range(m):
+        if mx < mat[i][j] and go[i][j] <= d:
+            mx = mat[i][j]
+            
+            
+print(mx)
