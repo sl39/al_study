@@ -23,9 +23,9 @@ for i in range(n):
             q = deque(q)
             while q:
                 x,y = q.popleft()
-                for i in range(4):
-                    nx = dx[i] + x
-                    ny = dy[i] + y
+                for k in range(4):
+                    nx = dx[k] + x
+                    ny = dy[k] + y
                     if 0<= nx < n and 0<= ny < m and mat[nx][ny] and visited[nx][ny] == 0:
                         visited[nx][ny] = t
                         q.append((nx,ny))
@@ -53,14 +53,47 @@ def bridge(start):
                 break
             nx = nx + dx[i]
             ny = ny + dy[i]
-            length += 1
+
 
 
 for i in range(n):
     for j in range(m):
         if visited[i][j] == 0:
+
             continue
         bridge((i,j))
 
-for i in arr:
-    print(i)
+
+visited=[]
+
+for i in range(1,t):
+    for j in range(1,t):
+        if arr[i][j] != 1e9:
+            visited.append((arr[i][j],i,j))
+
+visited.sort()
+arr = [i for i in range(t)]
+
+def find(p):
+    if p != arr[p]:
+        arr[p] = find(arr[p])
+    return arr[p]
+res = 0
+for i in visited:
+    c,s,e = i
+    ss = find(s)
+    ee = find(e)
+    if ee == ss:
+        continue
+    if ee > ss:
+        arr[ee] = ss
+    else:
+        arr[ss] = ss
+    res += c
+
+
+
+if res == 0:
+    print(-1)
+else:
+    print(res)
