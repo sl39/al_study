@@ -70,14 +70,15 @@ for i in range(1,t):
     for j in range(1,t):
         if arr[i][j] != 1e9:
             visited.append((arr[i][j],i,j))
-
 visited.sort()
+
 arr = [i for i in range(t)]
 
 def find(p):
     if p != arr[p]:
         arr[p] = find(arr[p])
     return arr[p]
+
 res = 0
 for i in visited:
     c,s,e = i
@@ -88,11 +89,18 @@ for i in visited:
     if ee > ss:
         arr[ee] = ss
     else:
-        arr[ss] = ss
+        arr[ss] = ee
+
+
     res += c
-
-
-
+for i in range(1,t):
+    find(i)
+    
+for i in range(1,t):
+    if arr[i] != 1:
+        res = 0
+        break
+        
 if res == 0:
     print(-1)
 else:
