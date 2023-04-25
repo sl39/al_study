@@ -1,4 +1,4 @@
-from heapq import heappop, heappush
+from collections import deque
 
 n = int(input())
 m = int(input())
@@ -13,28 +13,42 @@ for i in range(m):
     indegree[e] += 1
 
 start, end = map(int,input().split())
-q = []
-heappush(q,(0,start))
+q = deque([start])
 
 
-dep = [[0,0] for i in range((n+1))] # 다리수, 비용
-dep[start] =[0,0]
 
+dep = [0]*(n+1) # 비용
+bridge = [[] for i in range(n+1)]
 
+dep[start] =0
 
 while q:
-    total,node = heappop(q)
-    total = -total
+    node = q.popleft()
+    
     for j in graph[node]:
         cost, i = j
         indegree[i] -= 1
-        if indegree[i] == 0:
-            if dep[i][1] < cost + dep[node][1]:
-                dep[i][1] = cost + dep[node][1]
-                dep[i][0] = dep[node][0] + 1
-                heappush(q,(-dep[i][1],i))
-            elif dep[i][1] == cost + dep[node][1]:
-                dep[i][0] += dep[node][0]
-                heappush(q,(-dep[i][1],i))
+        
+        if dep[i] < cost + dep[node]:
+            dep[i]= cost + dep[node]
 
-print(dep)
+
+            bridge[i] = [node]
+
+        elif dep[i] == cost + dep[node]:
+            bridge[i].append(node)
+
+        if indegree[i] == 0:
+            q.append(i)
+
+q = deque([end])
+path  = set()
+while q:
+    now = q.popleft()
+    for i in bridge[now]:
+        if (now,i) not in path:
+            path.add((now,i))
+            q.append(i)
+
+print(dep[end])
+print(len(path))
