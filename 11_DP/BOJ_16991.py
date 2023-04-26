@@ -1,7 +1,17 @@
 n = int(input())
-mat = []
+arr = []
 for i in range(n):
-    mat.append(list(map(int,input().split())))
+    arr.append(list(map(int,input().split())))
+
+mat = [[0]*n for i in range(n)]
+
+for i in range(n):
+    x,y = arr[i]
+    for j in range(n):
+        k,l = arr[j]
+        dis = ((x-k)**2 + (y-l)**2)**(1/2)
+        mat[i][j] = dis
+
 
 dp = [[1e9]*(1<<n) for i in range(n)]
 
