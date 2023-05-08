@@ -27,6 +27,6 @@ for i in range(1,n+1):
     if p[i] == mx:
         pp = dfs(i)
         ans = max(max(pp[1:]),ans)
-        break
+        
 
 print(ans)

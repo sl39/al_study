@@ -1,3 +1,4 @@
+
 TC = int(input())
 for _ in range(TC):
     arr = []
@@ -5,5 +6,9 @@ for _ in range(TC):
     for i in range(n):
         arr.append(input().strip())
     arr.sort()
-    dic = {}
-    for i in range(n)
+    for i in range(n-1):
+        if arr[i+1].startswith(arr[i]):
+            print('NO')
+            break
+    else:
+        print("YES")
