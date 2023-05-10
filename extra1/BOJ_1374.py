@@ -1,21 +1,19 @@
-from collections import deque
+from heapq import heappop,heappush
 
 n = int(input())
 
 lectures = []
-res = 1
 for i in range(n):
     m, s,e = map(int,input().split())
-    lectures.append((e,s))
-lectures.sort()
-print(lectures)
-rooms = deque([lectures[0]])
+    heappush(lectures,(s,e))
 
-for i in range(1,n):
-    if lectures[i][1] < rooms[0][0]:
-        res += 1
-    else:
-        rooms.popleft()
-    rooms.append(lectures[i])
+rooms= []
+s,e = heappop(lectures)
+heappush(rooms,e)
+while lectures:
+    s,e = heappop(lectures)
+    if s >= rooms[0]:
+        heappop(rooms)
+    heappush(rooms,e)
 
-print(res)
+print(len(rooms))
